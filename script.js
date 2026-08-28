@@ -36,46 +36,47 @@ const products=[
 ['allskin','NURAA 2% Hyaluronic Acid Hydration Serum','Face Serum','Ceramides · Pro-Vitamin B5']
 ];
 
-// Map clean file names to each of the 30 products
-function getProductFileName(name) {
-    const mapping = {
-        "NURAA De-Tan Bathing Bar": "kojic_detan_soap.jpg",
-        "NURAA Exfoliating Lactic Body Wash": "lactic_body_wash.jpg",
-        "NURAA Bright Reveal Face Cleanser": "bright_reveal_cleanser.jpg",
-        "NURAA De-Tan UV Shield SPF 50 PA++++": "natural_shield_sunscreen.jpg",
-        "NURAA 2% Alpha Arbutin Serum": "bright_reveal_serum.jpg",
-        "NURAA Charcoal Detox Soap": "charcoal_detox_soap.jpg",
-        "NURAA Acne-Control Body Wash": "acne_control_body_wash.jpg",
-        "NURAA Deep Clean BHA Cleanser": "deep_clean_bha_cleanser.jpg",
-        "NURAA Matte Oil-Control Sunscreen SPF 50": "matte_oil_control_sunscreen.jpg",
-        "NURAA 2% BHA Acne Serum": "bha_acne_serum.jpg",
-        "NURAA Green Clay Texturizing Soap": "green_clay_texturizing_soap.jpg",
-        "NURAA Smooth Skin Kaolin Wash": "smooth_skin_kaolin_wash.jpg",
-        "NURAA Whitehead Eraser Face Wash": "whitehead_eraser_face_wash.jpg",
-        "NURAA Ultra-Light Fluid Sunscreen SPF 50": "ultra_light_fluid_sunscreen.jpg",
-        "NURAA 10% Niacinamide Clarifying Serum": "niacinamide_clarifying_serum.jpg",
-        "NURAA Velvet Rose & Shea Soap": "velvet_rose_shea_soap.jpg",
-        "NURAA Sandalwood & Lavender Shower Gel": "sandalwood_lavender_shower_gel.jpg",
-        "NURAA Soothing Chamomile Cleanser": "soothing_chamomile_cleanser.jpg",
-        "NURAA Dewy Vanilla Glow Sunscreen SPF 50": "dewy_vanilla_glow_sunscreen.jpg",
-        "NURAA Squalane & Neroli Glow Drops": "squalane_neroli_glow_drops.jpg",
-        "NURAA Golden Saffron Glow Bar": "golden_saffron_glow_bar.jpg",
-        "NURAA Vitamin C Radiance Body Wash": "vitamin_c_radiance_body_wash.jpg",
-        "NURAA Saffron & Honey Face Cleanser": "saffron_honey_face_cleanser.jpg",
-        "NURAA Vitamin C Dewy Sunscreen SPF 50": "vitamin_c_dewy_sunscreen.jpg",
-        "NURAA 10% Vitamin C Radiance Serum": "vitamin_c_radiance_serum.jpg",
-        "NURAA Castile Olive Soap": "castile_olive_soap.jpg",
-        "NURAA Oatmeal Soothing Body Wash": "oatmeal_soothing_body_wash.jpg",
-        "NURAA Centella Gentle Cleanser": "centella_gentle_cleanser.jpg",
-        "NURAA Hybrid Mineral Sunscreen SPF 50": "hybrid_mineral_sunscreen.jpg",
-        "NURAA 2% Hyaluronic Acid Hydration Serum": "hyaluronic_acid_hydration_serum.jpg"
-    };
-    return mapping[name] || "bright_reveal_serum.jpg";
+// Map clean file names to each of the 30 products with smart fallback for catalog rendering
+function getProductFileName(name, type, category) {
+    // Check specific hero products
+    if (name === "NURAA De-Tan Bathing Bar" || name === "NURAA Castile Olive Soap" || name === "NURAA Green Clay Texturizing Soap" || name === "NURAA Velvet Rose & Shea Soap") {
+        return "kojic_detan_soap.jpg";
+    }
+    if (name === "NURAA Charcoal Detox Soap") {
+        return "charcoal_detox_soap.jpg";
+    }
+    if (name === "NURAA 2% Alpha Arbutin Serum" || name === "NURAA 10% Niacinamide Clarifying Serum" || name === "NURAA Squalane & Neroli Glow Drops" || name === "NURAA 2% BHA Acne Serum" || name === "NURAA 2% Hyaluronic Acid Hydration Serum") {
+        return "bright_reveal_serum.jpg";
+    }
+    if (name === "NURAA De-Tan UV Shield SPF 50 PA++++" || name === "NURAA Matte Oil-Control Sunscreen SPF 50" || name === "NURAA Ultra-Light Fluid Sunscreen SPF 50" || name === "NURAA Dewy Vanilla Glow Sunscreen SPF 50" || name === "NURAA Vitamin C Dewy Sunscreen SPF 50" || name === "NURAA Hybrid Mineral Sunscreen SPF 50") {
+        return "natural_shield_sunscreen.jpg";
+    }
+    if (name === "NURAA 10% Vitamin C Radiance Serum") {
+        return "bright_reveal_serum.jpg";
+    }
+    
+    // Type base styling fallbacks
+    if (type === "Body Soap" || name.includes("Soap") || name.includes("Bar")) {
+        if (category === "blackheads") return "charcoal_detox_soap.jpg";
+        return "kojic_detan_soap.jpg";
+    }
+    if (type === "Face Serum" || type === "Face Oil" || name.includes("Serum") || name.includes("Drops") || name.includes("Oil")) {
+        return "bright_reveal_serum.jpg";
+    }
+    if (type === "Sunscreen" || name.includes("Sunscreen") || name.includes("Shield") || name.includes("Mist")) {
+        return "natural_shield_sunscreen.jpg";
+    }
+    if (type === "Body Wash" || type === "Face Wash" || type === "Cleanser" || name.includes("Wash") || name.includes("Cleanser") || name.includes("Gel")) {
+        // Fallback washes to serum bottle or cream jar looks
+        if (category === "glow" || category === "tan") return "bright_reveal_serum.jpg";
+        return "natural_shield_sunscreen.jpg";
+    }
+    return "glow_restore_cream.jpg";
 }
 
 // Generate fallback descriptions & specs dynamically for all 30 products
 function getPdpSpecs(name, category, type, ingredientsText) {
-    const image = getProductFileName(name);
+    const image = getProductFileName(name, type, category);
     
     // Parse ingredients cleanly
     const parsedIng = ingredientsText.split("·").map(x => {
@@ -134,7 +135,7 @@ function renderProducts(filter='all'){
     document.getElementById('countLabel').textContent=`${list.length} formulas`;
     grid.innerHTML=list.map((p,i)=> {
         const spec = getPdpSpecs(p[1], p[0], p[2], p[3]);
-        const imgFile = getProductFileName(p[1]);
+        const imgFile = getProductFileName(p[1], p[2], p[0]);
         return `<article class="product-card">
             <a href="product.html?name=${encodeURIComponent(p[1])}">
                 <div class="product-img-wrapper" style="background-image: url('${imgFile}'); background-size: cover; background-position: center; aspect-ratio: 1/1.1; border-radius: 2px; border: 1px solid var(--line);" role="img" aria-label="${p[1]} packaging box and container closeup photography"></div>
@@ -167,7 +168,7 @@ function renderPdp(){
 
     el.innerHTML=`<section class="pdp"><div class="pdp-grid">
         <div class="pdp-gallery">
-            <div id="mainPdpImage" class="main-pdp-image" style="background-image: url('${spec.angles[0].image}');" role="img" aria-label="${spec.angles[0].label}"></div>
+            <div id="mainPdpImage" class="main-pdp-image" style="background-image: url('${spec.angles[0].image}');"></div>
             <div class="pdp-thumbs">
                 ${spec.angles.map((ang, idx) => `<button class="pdp-thumb ${idx===0?'active':''}" onclick="changePdpImage('${ang.image}', this)" style="background-image: url('${ang.image}');" aria-label="${ang.label}"></button>`).join('')}
             </div>
