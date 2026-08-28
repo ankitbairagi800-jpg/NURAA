@@ -39,23 +39,23 @@ const products=[
 // Map clean file names to each of the 30 products with smart fallback for catalog rendering
 function getProductFileName(name, type, category) {
     // Check specific hero products
-    if (name === "NURAA De-Tan Bathing Bar" || name === "NURAA Castile Olive Soap" || name === "NURAA Green Clay Texturizing Soap" || name === "NURAA Velvet Rose & Shea Soap") {
+    if (name === "NURAA De-Tan Bathing Bar" || name === "NURAA Castile Olive Soap" || name === "NURAA Green Clay Texturizing Soap" || name === "NURAA Velvet Rose & Shea Soap" || name === "NURAA Golden Saffron Glow Bar") {
         return "kojic_detan_soap.jpg";
     }
     if (name === "NURAA Charcoal Detox Soap") {
         return "charcoal_detox_soap.jpg";
     }
-    if (name === "NURAA 2% Alpha Arbutin Serum" || name === "NURAA 10% Niacinamide Clarifying Serum" || name === "NURAA Squalane & Neroli Glow Drops" || name === "NURAA 2% BHA Acne Serum" || name === "NURAA 2% Hyaluronic Acid Hydration Serum") {
+    if (name === "NURAA 2% Alpha Arbutin Serum" || name === "NURAA 10% Niacinamide Clarifying Serum" || name === "NURAA Squalane & Neroli Glow Drops" || name === "NURAA 2% BHA Acne Serum" || name === "NURAA 2% Hyaluronic Acid Hydration Serum" || name === "NURAA 10% Vitamin C Radiance Serum") {
         return "bright_reveal_serum.jpg";
     }
     if (name === "NURAA De-Tan UV Shield SPF 50 PA++++" || name === "NURAA Matte Oil-Control Sunscreen SPF 50" || name === "NURAA Ultra-Light Fluid Sunscreen SPF 50" || name === "NURAA Dewy Vanilla Glow Sunscreen SPF 50" || name === "NURAA Vitamin C Dewy Sunscreen SPF 50" || name === "NURAA Hybrid Mineral Sunscreen SPF 50") {
         return "natural_shield_sunscreen.jpg";
     }
-    if (name === "NURAA 10% Vitamin C Radiance Serum") {
-        return "bright_reveal_serum.jpg";
+    if (name === "NURAA Glow Restore Radiance Cream" || name === "NURAA Radiance Restoring Cream-Serum" || name === "NURAA Glow Cream") {
+        return "glow_restore_cream.jpg";
     }
     
-    // Type base styling fallbacks
+    // Type base styling fallbacks to resolve format mismatch
     if (type === "Body Soap" || name.includes("Soap") || name.includes("Bar")) {
         if (category === "blackheads") return "charcoal_detox_soap.jpg";
         return "kojic_detan_soap.jpg";
@@ -66,10 +66,13 @@ function getProductFileName(name, type, category) {
     if (type === "Sunscreen" || name.includes("Sunscreen") || name.includes("Shield") || name.includes("Mist")) {
         return "natural_shield_sunscreen.jpg";
     }
-    if (type === "Body Wash" || type === "Face Wash" || type === "Cleanser" || name.includes("Wash") || name.includes("Cleanser") || name.includes("Gel")) {
-        // Fallback washes to serum bottle or cream jar looks
-        if (category === "glow" || category === "tan") return "bright_reveal_serum.jpg";
+    if (type === "Face Wash" || type === "Cleanser" || name.includes("Cleanser")) {
+        // Face wash uses the squeeze tube format
         return "natural_shield_sunscreen.jpg";
+    }
+    if (type === "Body Wash" || type === "Shower Gel" || name.includes("Wash") || name.includes("Gel")) {
+        // Body wash uses a premium dark amber PET pump bottle image matching the brand style
+        return "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?q=80&w=500";
     }
     return "glow_restore_cream.jpg";
 }
@@ -115,7 +118,7 @@ function getPdpSpecs(name, category, type, ingredientsText) {
         primaryPackaging: type === "Body Soap" ? "Textured breathable butter paper wrap sealed with a gold foil leaf sticker." : "Frosted glass container with premium metallic gold collar.",
         secondaryPackaging: "Matte 350 GSM recycled cardstock slide-out drawer box with gold ribbon pull-tab.",
         angles: [
-            { image: image, label: `Angle 1: ${name} bottle packaging view` },
+            { image: image, label: `Angle 1: ${name} packaging view` },
             { image: "nuraa_hero_products.jpg", label: "Angle 2: Full collection display" },
             { image: "brand_story.jpg", label: "Angle 3: Ingredients texture" }
         ]
