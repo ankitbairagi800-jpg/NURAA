@@ -67,18 +67,123 @@ function getProductFileName(name, type, category) {
         return "natural_shield_sunscreen.jpg";
     }
     if (type === "Face Wash" || type === "Cleanser" || name.includes("Cleanser")) {
-        // Face wash uses the squeeze tube format
         return "natural_shield_sunscreen.jpg";
     }
     if (type === "Body Wash" || type === "Shower Gel" || name.includes("Wash") || name.includes("Gel")) {
-        // Body wash uses a premium dark amber PET pump bottle image matching the brand style
         return "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?q=80&w=500";
     }
     return "glow_restore_cream.jpg";
 }
 
+// Enriched product specifications for the main hero catalog
+const productSpecs = {
+    "NURAA 2% Alpha Arbutin Serum": {
+        price: 349,
+        originalPrice: 499,
+        description: "A high-potency, lightweight face serum formulated with 2% Alpha Arbutin and 10% Niacinamide. Directly targets hyperpigmentation, dark spots, and uneven skin tone for visible results in 1-2 weeks.",
+        ingredients: [
+            { name: "Alpha Arbutin", percentage: "2.0%", purpose: "Lightens hyperpigmentation by blocking melanin synthesis (tyrosinase inhibition)" },
+            { name: "Niacinamide (Vit B3)", percentage: "10.0%", purpose: "Prevents transfer of pigment to skin surface and strengthens lipid barrier" },
+            { name: "Licorice Extract", percentage: "5.0%", purpose: "Natural antioxidant that decomposes dispersed melanin clusters" },
+            { name: "Hyaluronic Acid", percentage: "1.0%", purpose: "Holds moisture in skin layers to provide a plump, radiant look" }
+        ],
+        concernTitle: "Pigmentation & Dark Spots (How it works)",
+        concernSolution: "Alpha Arbutin acts at the cellular level to inhibit pigment-forming cells. Niacinamide acts as a shield, preventing that pigment from moving to surface skin cells. Together they clear existing marks and block new tan buildup.",
+        howToUse: [
+            "Cleanse your face thoroughly with a gentle cleanser.",
+            "Apply 3-4 drops of Bright Reveal Serum onto face and neck.",
+            "Gently pat (do not rub) until fully absorbed.",
+            "Always follow up with Sunscreen during the day."
+        ],
+        primaryPackaging: "30ml frosted pharmaceutical-grade amber glass bottle with a premium metallic gold dropper collar cap.",
+        secondaryPackaging: "Matte 350 GSM recycled cardboard slide-out drawer box with golden hot foil logo stamping.",
+        angles: [
+            { image: "bright_reveal_serum.jpg", label: "Angle 1: Dropper Bottle Container View" },
+            { image: "bright_reveal_serum_box.jpg", label: "Angle 2: Slide-out Rigid Packaging Box View" },
+            { image: "brand_story.jpg", label: "Angle 3: Ingredients Texture View" }
+        ]
+    },
+    "NURAA De-Tan Bathing Bar": {
+        price: 249,
+        originalPrice: 349,
+        description: "A premium handcrafted cold-process bathing bar formulated with Lactic Acid and Kojic Acid. Specifically designed to dissolve sun tan and friction darkening in 7 days.",
+        ingredients: [
+            { name: "Lactic Acid (AHA)", percentage: "2.0%", purpose: "Gently breaks skin surface bonds to lift away dead cells and sun tan layers" },
+            { name: "Kojic Acid", percentage: "1.0%", purpose: "Prevents melanin buildup to brighten dark spots on body and face" },
+            { name: "Goat Milk", percentage: "5.0%", purpose: "Rich in lactic acid and skin-nourishing fats to prevent dry skin irritation" },
+            { name: "Orange Peel Powder", percentage: "2.0%", purpose: "Provides physical micro-exfoliation to scrub off dead cells" }
+        ],
+        concernTitle: "Sun Tan & Dark Joints (How it works)",
+        concernSolution: "Sun tan binds to the outer layer of skin cells. Lactic Acid breaks this surface bond, allowing the dead tanned skin to exfoliate naturally. Goat milk acts as a soothing moisture pad, keeping skin supple while active Kojic Acid lightens dark areas.",
+        howToUse: [
+            "Wet your body or face with lukewarm water.",
+            "Rub the soap bar between hands to generate a creamy rich lather.",
+            "Massage lather onto body skin, focusing on tanned joints and neck.",
+            "Rinse thoroughly and pat dry. Apply moisturizer."
+        ],
+        primaryPackaging: "Textured breathable butter paper wrap sealed with a gold foil leaf sticker containing the batch number.",
+        secondaryPackaging: "Matte off-white recycled paperboard slide-out drawer box with gold ribbon pull-tab.",
+        angles: [
+            { image: "kojic_detan_soap.jpg", label: "Angle 1: Wrapped Soap Block View" },
+            { image: "kojic_detan_soap_box.jpg", label: "Angle 2: Unboxed Drawer Packaging Box View" },
+            { image: "brand_story.jpg", label: "Angle 3: Botanical Scene View" }
+        ]
+    },
+    "NURAA De-Tan UV Shield SPF 50 PA++++": {
+        price: 399,
+        originalPrice: 499,
+        description: "An ultra-light, non-greasy hybrid sunscreen with SPF 50 and PA++++ protection. Infused with Niacinamide to prevent future tanning while treating existing pigmentation.",
+        ingredients: [
+            { name: "Zinc Oxide", percentage: "5.0%", purpose: "Broad-spectrum mineral filter that reflects harmful UVA and UVB rays" },
+            { name: "Niacinamide", percentage: "2.0%", purpose: "Controls sebum and brightens skin tone while protecting the barrier" },
+            { name: "Aloe Vera Juice", percentage: "10.0%", purpose: "Soothes skin and cools inflammation from active sun exposure" }
+        ],
+        concernTitle: "Sun Damage & Tan Prevention (How it works)",
+        concernSolution: "Zinc Oxide creates a physical mirror-shield on the skin surface that reflects heat and ultraviolet radiation, preventing sunburn and melanin trigger activation. Niacinamide prevents moisture loss.",
+        howToUse: [
+            "Use as the final step of your morning skincare routine.",
+            "Take two finger-lengths of sunscreen and apply generously on face and neck.",
+            "Blend gently until it absorbs cleanly with zero white cast.",
+            "Reapply every 3-4 hours if directly exposed to sun."
+        ],
+        primaryPackaging: "50g matte white squeezable tube with a golden metallic screw-on cap.",
+        secondaryPackaging: "Matte textured ivory carton with gold foil details.",
+        angles: [
+            { image: "natural_shield_sunscreen.jpg", label: "Angle 1: Tube Container View" },
+            { image: "natural_shield_sunscreen_box.jpg", label: "Angle 2: Sunscreen Outer Packaging Box View" },
+            { image: "brand_story.jpg", label: "Angle 3: Story Shoot View" }
+        ]
+    },
+    "NURAA Charcoal Detox Soap": {
+        price: 199,
+        originalPrice: 299,
+        description: "A deep-cleansing detox bar with 3% Activated Charcoal and Salicylic Acid. Targets body acne, back acne (bacne), and clogged pores. Removes blackheads in 5-7 days.",
+        ingredients: [
+            { name: "Activated Charcoal", percentage: "3.0%", purpose: "Adsorbs deep pores sebum, impurities, and micro-particles of dust" },
+            { name: "Salicylic Acid (BHA)", percentage: "1.0%", purpose: "Oil-soluble active that penetrates inside pores to dissolve sebum blocks" },
+            { name: "Neem & Tulsi Oils", percentage: "4.0%", purpose: "Organic extracts to prevent bacterial acne proliferation" }
+        ],
+        concernTitle: "Acne, Clogged Pores & Blackheads (How it works)",
+        concernSolution: "Salicylic Acid (BHA) goes deep inside oil pores to break down the sticky glue of sebum and dead skin that causes blackheads. Activated charcoal acts like a magnet, pulling these dissolved plugs and dirt out of the pores.",
+        howToUse: [
+            "Wet face or body skin with warm water to open pores.",
+            "Lather the soap block and massage gently on acne-prone areas.",
+            "Leave lather on skin for 30-45 seconds for Salicylic Acid to act.",
+            "Rinse cleanly with cold water to close pores."
+        ],
+        primaryPackaging: "Textured breathable butter paper wrap with a gold foil leaf sticker seal.",
+        secondaryPackaging: "Matte 350 GSM cardboard sliding box with gold foil logo stamping.",
+        angles: [
+            { image: "charcoal_detox_soap.jpg", label: "Angle 1: Charcoal Soap Block View" },
+            { image: "charcoal_detox_soap_box.jpg", label: "Angle 2: Sliding Drawer Box Packaging View" },
+            { image: "brand_story.jpg", label: "Angle 3: Ingredients Backdrop View" }
+        ]
+    }
+};
+
 // Generate fallback descriptions & specs dynamically for all 30 products
 function getPdpSpecs(name, category, type, ingredientsText) {
+    if (productSpecs[name]) return productSpecs[name];
     const image = getProductFileName(name, type, category);
     
     // Parse ingredients cleanly
@@ -103,6 +208,11 @@ function getPdpSpecs(name, category, type, ingredientsText) {
         "allskin": "Formulated with skin barrier-identical lipids (Ceramides) and natural anti-inflammatory extracts (Centella/Oatmeal) to soothe irritation and retain moisture in all skin types."
     };
 
+    // Auto-create box file name mockups based on format
+    let boxImage = "bright_reveal_serum_box.jpg";
+    if (type === "Body Soap") boxImage = "kojic_detan_soap_box.jpg";
+    if (type === "Sunscreen" || type === "Face Wash") boxImage = "natural_shield_sunscreen_box.jpg";
+
     return {
         price: type === "Body Soap" ? 249 : (type === "Face Serum" ? 349 : 399),
         originalPrice: type === "Body Soap" ? 349 : (type === "Face Serum" ? 499 : 549),
@@ -118,18 +228,12 @@ function getPdpSpecs(name, category, type, ingredientsText) {
         primaryPackaging: type === "Body Soap" ? "Textured breathable butter paper wrap sealed with a gold foil leaf sticker." : "Frosted glass container with premium metallic gold collar.",
         secondaryPackaging: "Matte 350 GSM recycled cardstock slide-out drawer box with gold ribbon pull-tab.",
         angles: [
-            { image: image, label: `Angle 1: ${name} packaging view` },
-            { image: "nuraa_hero_products.jpg", label: "Angle 2: Full collection display" },
-            { image: "brand_story.jpg", label: "Angle 3: Ingredients texture" }
+            { image: image, label: `Angle 1: ${name} container packaging view` },
+            { image: boxImage, label: `Angle 2: ${name} protective outer box packaging view` },
+            { image: "brand_story.jpg", label: "Angle 3: Ingredients texture view" }
         ]
     };
 }
-
-let cart=JSON.parse(localStorage.getItem('nuraaCart')||'[]');
-function toggleCart(){document.getElementById('cart')?.classList.toggle('open');renderCart()}
-function addToCart(name){cart.push(name);localStorage.setItem('nuraaCart',JSON.stringify(cart));renderCart();document.getElementById('cart')?.classList.add('open')}
-function renderCart(){document.querySelectorAll('#cartCount').forEach(x=>x.textContent=cart.length);const el=document.getElementById('cartItems');if(!el)return;el.innerHTML=cart.length?cart.map((x,i)=>`<div class="cart-line"><span>${x}</span><button onclick="removeFromCart(${i})">×</button></div>`).join('')+'<a class="btn" style="margin-top:30px" href="#">CHECKOUT</a>':'Your ritual starts here.<br><a href="shop.html">Explore the collection →</a>'}
-function removeFromCart(i){cart.splice(i,1);localStorage.setItem('nuraaCart',JSON.stringify(cart));renderCart()}
 
 function renderProducts(filter='all'){
     const grid=document.getElementById('productGrid');
